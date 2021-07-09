@@ -20,20 +20,18 @@ def list_pictures(directory, ext='jpg|jpeg|bmp|png|ppm'):
             if re.match(r'([\w]+\.(?:' + ext + '))', f.lower())]
 
 
-# 画像一枚、確認
-# temp_img = load_img('./dataset1/F0.jpg', target_size=(64,64))
-# temp_img_array  = img_to_array(temp_img)
-# print(temp_img_array.shape)
-
 X = []
 Y = []
 
-for picture in list_pictures('./dataset_true/'):
+TRUE_DATASET_PATH = "./trimmed/dataset_true/"
+FALSE_DATASET_PATH = "./trimmed/dataset_false/"
+
+for picture in list_pictures(TRUE_DATASET_PATH):
     img = img_to_array(load_img(picture, target_size=(64,64)))
     X.append(img)
     Y.append(0)
 
-for picture in list_pictures('./dataset_false/'):
+for picture in list_pictures(FALSE_DATASET_PATH):
     img = img_to_array(load_img(picture, target_size=(64,64)))
     X.append(img)
     Y.append(1)
@@ -44,16 +42,16 @@ print(Y)
 X = np.asarray(X)
 Y = np.asarray(Y)
 
-# 中身確認
-print(type(X))
-print(type(Y))
+# # 中身確認
+# print(type(X))
+# print(type(Y))
 
-print(X.size)
-print(Y.size)
-print(len(X))
-print(len(Y))
-print(X)
-print(Y)
+# print(X.size)
+# print(Y.size)
+# print(len(X))
+# print(len(Y))
+# print(X)
+# print(Y)
 
 
 # 画素値を0から1の範囲に変換
