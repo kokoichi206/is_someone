@@ -10,15 +10,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
-import os
-import re
-
-
-def list_pictures(directory, ext='jpg|jpeg|bmp|png|ppm'):
-    return [os.path.join(root, f)
-            for root, _, files in os.walk(directory) for f in files
-            if re.match(r'([\w]+\.(?:' + ext + '))', f.lower())]
-
+import glob
 
 X = []
 Y = []
@@ -26,13 +18,13 @@ Y = []
 TRUE_DATASET_PATH = "./trimmed/dataset_true/"
 FALSE_DATASET_PATH = "./trimmed/dataset_false/"
 
-for picture in list_pictures(TRUE_DATASET_PATH):
-    img = img_to_array(load_img(picture, target_size=(64,64)))
+for picture in glob.glob(TRUE_DATASET_PATH + "*"):
+    img = img_to_array(load_img(picture))
     X.append(img)
     Y.append(0)
 
-for picture in list_pictures(FALSE_DATASET_PATH):
-    img = img_to_array(load_img(picture, target_size=(64,64)))
+for picture in glob.glob(FALSE_DATASET_PATH + "*"):
+    img = img_to_array(load_img(picture))
     X.append(img)
     Y.append(1)
 
@@ -48,8 +40,8 @@ Y = np.asarray(Y)
 
 # print(X.size)
 # print(Y.size)
-# print(len(X))
-# print(len(Y))
+print(len(X))
+print(len(Y))
 # print(X)
 # print(Y)
 
@@ -63,7 +55,7 @@ Y = np_utils.to_categorical(Y, 2)
 
 # 学習用データとテストデータ
 X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.33, random_state=111)
-print(X_train)
+# print(X_train)
 
 # npz形式へ書き出し
 np.savez("dataset.npz",X_train=X_train,X_test=X_test,y_train=y_train,y_test=y_test)
