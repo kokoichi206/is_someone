@@ -24,7 +24,7 @@ def resizeImg(img_path):
     img.save(img_path)
 
 def findFace(img_path):
-    resizeImg(img_path)
+    resizeImg(img_path) # メモリの消費を抑えるためにリサイズする
     img_data = face_recognition.load_image_file(img_path)
     loc = face_recognition.face_locations(img_data, model='cnn') # 'hog'よりmodel='cnn'の方が高精度ではある
     print(loc)
@@ -43,7 +43,6 @@ def trimImg(img_path, loc):
     length = max(width, height) * IMG_RATIO // 2
     center_x = (right + left) / 2
     center_y = (top + bottom) / 2
-    # croppedIm = Image.crop((top, left, bottom, right))
     img = img.crop((center_x-length,center_y-length, center_x+length,center_y+length))
     img = img.resize((IMG_SIZE, IMG_SIZE))
     img.save(CROPPED_IMG_PATH + img_path)
