@@ -24,9 +24,9 @@ def resizeImg(img_path):
     img.save(img_path)
 
 def findFace(img_path):
-    resizeImg(img_path) # メモリの消費を抑えるためにリサイズする
+    # resizeImg(img_path) # メモリの消費を抑えるためにリサイズする
     img_data = face_recognition.load_image_file(img_path)
-    loc = face_recognition.face_locations(img_data, model='cnn') # 'hog'よりmodel='cnn'の方が高精度ではある
+    loc = face_recognition.face_locations(img_data, model='hog') # 'hog', 'cnn' etc??
     print(loc)
     return loc
 
@@ -49,11 +49,12 @@ def trimImg(img_path, loc):
 
 def main():
 
-    true_files = glob.glob(FOLDER_TRUE + "*")
+    # true_files = glob.glob(FOLDER_TRUE + "*")
+    true_files = glob.glob("minami/" + "*")
     false_files = glob.glob(FOLDER_FALSE + "*")
-    
+
+    print(len(true_files) + len(false_files))
     for path in true_files:
-        print(path)
         locs = findFace(path)
         if (len(locs) != 1):
             print("うまく取得できなかったピヨ")
@@ -61,7 +62,6 @@ def main():
         trimImg(path, locs[0])
 
     for path in false_files:
-        print(path)
         locs = findFace(path)
         if (len(locs) != 1):
             print("うまく取得できなかったピヨ")

@@ -62,6 +62,7 @@ def check_page_list(member_name):
 
 if __name__ == '__main__':
 	## 名前とフォルダの指定、'_'で区切る
-    scraping_allpic("minami_hoshino", "./dataset_true/")
-    scraping_allpic("manatsu_akimoto", "./dataset_false/")
-
+    # scraping_allpic("minami_hoshino", "./dataset_true/")
+    # scraping_allpic("manatsu_akimoto", "./dataset_false/")
+    scraping_allpic("hazuki_mukai", "./dataset_false/")
+    scraping_allpic("tamami_sakaguchi", "./dataset_false/")

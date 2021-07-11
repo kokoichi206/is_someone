@@ -1,5 +1,6 @@
 # データ作成　保存
 import keras
+import tensorflow
 from keras.utils import np_utils
 from keras.layers.convolutional import Conv2D, MaxPooling2D
 from keras.models import Sequential
